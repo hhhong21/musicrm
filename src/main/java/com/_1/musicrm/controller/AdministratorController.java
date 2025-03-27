@@ -15,48 +15,48 @@ public class AdministratorController {
     @Autowired
     private AdministratorService adminService;
 
-    @GetMapping("/adminRegister")
+    @GetMapping("/AdministratorRegister")
     public String getRegisterAdminForm(Model model){
         model.addAttribute("admin", new Administrator());
-        return "adminRegister";  // return to adminRegister.html
+        return "AdministratorRegister"; 
     }
 
-    @PostMapping("/adminRegister")
+    @PostMapping("/AdministratorRegister")
     public String registerAdmin(@ModelAttribute Administrator admin){
         adminService.saveAdmin(admin);
-        return "redirect:/adminLogin"; 
+        return "redirect:/AdministratorLogin"; 
     }
 
-    @GetMapping("/adminLogin")
+    @GetMapping("/AdministratorLogin")
     public String getLoginAdminForm(Model model){
         model.addAttribute("admin", new Administrator());
-       return "adminLogin";  // return to adminLogin.html
+       return "AdministratorLogin"; 
     }
 
-    @PostMapping("/adminLogin")
+    @PostMapping("/AdministratorLogin")
     public String loginAdmin(@ModelAttribute Administrator admin, Model model){
         String result = adminService.loginAdmin(admin);
         switch(result){
             case "Administrator Not Found!" -> {
                 model.addAttribute("error", "Administrator Not Found!");
-                return "adminLogin";
+                return "AdministratorLogin";
             }
             case "Password Mismatch!" -> {
                 model.addAttribute("error", "Password Mismatch!");
-                return "adminLogin";
+                return "AdministratorLogin";
             } 
             case "Login Success!" -> {
-                return "redirect:/adminHome";
+                return "redirect:/AdministratorHome";
             }
             default -> {
                 model.addAttribute("error", "Unknown Error!");
-                return "adminLogin";
+                return "AdministratorLogin";
             }
         }
     }
 
-    @GetMapping("/adminHome")
+    @GetMapping("/AdministratorHome")
     public String showAdminHome(){
-        return "adminHome";  // return to adminHome.html
+        return "AdministratorHome"; 
     }
 }

@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Administrator Register</title>
-    <link rel="stylesheet" type="text/css" href="/css/adminStyle.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator Register Page</title>
+    <link rel="stylesheet" href="AdministratorStyle.css">
 </head>
 <body>
     <div class="container">
-        <div class="adminRegister-container">
+        <div class="AdministratorRegister-container">
             <h2><i>Administrator Register</i></h2>
-            <form action="#" th:action="@{/adminRegister}" method="post">
+            <form action="#" th:action="@{/AdministratorRegister}" method="post">
                 <div>
                     <label for="adminName">name</label>
                     <input type="text" id="adminName" name="adminName" required>
