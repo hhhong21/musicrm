@@ -59,4 +59,9 @@ public class AdministratorController {
     public String showAdminHome(){
         return "AdministratorHome"; 
     }
+
+    @GetMapping("/UserHome")
+    public String showUserHome(){
+        return "UserHome";
+    }
 }
