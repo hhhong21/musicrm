@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Music Filter</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 40px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #444;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+
+    select, input[type="checkbox"] {
+      margin-top: 8px;
+      padding: 6px;
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    .music-item {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f9f9f9;
+      border-left: 4px solid #4CAF50;
+      border-radius: 6px;
+    }
+
+    .no-result {
+      margin-top: 20px;
+      color: #999;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🎵 Music Filter</h2>
+
+    <label for="categorySelect">Category:</label>
+    <select id="categorySelect">
+      <option value="">All</option>
+      <option value="1">Pop</option>
+      <option value="2">Rock</option>
+    </select>
+
+    <label>Tags:</label>
+    <label><input type="checkbox" value="100"> Tag 100</label>
+    <label><input type="checkbox" value="101"> Tag 101</label>
+    <label><input type="checkbox" value="102"> Tag 102</label>
+
+    <button onclick="filterMusic()">Search</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function filterMusic() {
+      const categoryId = document.getElementById("categorySelect").value;
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      const tagIds = Array.from(checkboxes).map(cb => `tagIds=${cb.value}`).join("&");
+
+      let url = "http://localhost:8080/api/music/filter";
+      const params = [];
+
+      if (categoryId) params.push(`categoryId=${categoryId}`);
+      if (tagIds) params.push(tagIds);
+
+      if (params.length > 0) {
+        url += "?" + params.join("&");
+      }
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const resultDiv = document.getElementById("result");
+          resultDiv.innerHTML = "";
+
+          if (data.length === 0) {
+            resultDiv.innerHTML = "<p class='no-result'>No matching results.</p>";
+            return;
+          }
+
+          data.forEach(music => {
+            const item = document.createElement("div");
+            item.className = "music-item";
+            item.innerHTML = `<strong>${music.title}</strong> by ${music.artist}<br><em>${music.album}</em>`;
+            resultDiv.appendChild(item);
+          });
+        })
+        .catch(err => {
+          console.error("Fetch error:", err);
+          document.getElementById("result").innerHTML = "<p style='color:red;'>Request failed. Is the backend running?</p>";
+        });
+    }
+  </script>
+</body>
+</html>
