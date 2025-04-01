@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Resource Management-User Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="mb-4">Music Resource Management-User Page</h1>
+<!-- Update music categories -->
+<div class="card mb-4">
+    <div class="card-header">Update music categories</div>
+    <div class="card-body">
+        <form id="update-category-form">
+            <div class="form-group">
+                <label for="update-category-id">Category ID</label>
+                <input type="number" class="form-control" id="update-category-id" required>
+            </div>
+            <div class="form-group">
+                <label for="update-category-name">New category name</label>
+                <input type="text" class="form-control" id="update-category-name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+</div>
+</body>
+
+</html> 
