@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Music Search</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    #search-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    #keywordInput {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      margin-right: 10px;
+      width: 300px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4c87af;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #457ba0;
+    }
+
+    .music-item {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .music-item img {
+      width: 80px;
+      height: 80px;
+      border-radius: 5px;
+      margin-right: 15px;
+    }
+
+    .music-item .details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .music-item .details strong {
+      font-size: 18px;
+      color: #333;
+    }
+
+    .music-item .details em {
+      color: #777;
+    }
+
+    .no-results {
+      text-align: center;
+      color: #999;
+      font-style: italic;
+    }
+
+    .error-message {
+      color: red;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Search Music</h2>
+
+  <div id="search-container">
+    <input type="text" id="keywordInput" placeholder="Enter keyword..." />
+    <button onclick="searchMusic()">Search</button>
+  </div>
+
+  <h3>Results:</h3>
+  <div id="result"></div>
+
+  <div id="error" class="error-message"></div>
+
+  <script>
+    function searchMusic() {
+      const keyword = document.getElementById("keywordInput").value.trim();
+      const resultDiv = document.getElementById("result");
+      const errorDiv = document.getElementById("error");
+
+      // Clear previous results and error messages
+      resultDiv.innerHTML = "";
+      errorDiv.innerHTML = "";
+
+      if (!keyword) {
+        errorDiv.innerHTML = "Please enter a keyword to search.";
+        return;
+      }
+
+      const url = `http://localhost:8080/api/music/search?keyword=${encodeURIComponent(keyword)}`;
+
+      fetch(url)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data.length === 0) {
+            resultDiv.innerHTML = "<p class='no-results'>No results found.</p>";
+            return;
+          }
+
+          data.forEach(music => {
+            const item = document.createElement("div");
+            item.className = "music-item";
+
+            // Example image (replace with real data if available)
+            const musicCover = "https://via.placeholder.com/80";  // Replace with actual cover image URL
+
+            item.innerHTML = `
+              <img src="${musicCover}" alt="${music.title} cover" />
+              <div class="details">
+                <strong>${music.title}</strong>
+                <em>by ${music.artist}</em>
+                <em>Album: ${music.album}</em>
+              </div>
+            `;
+            resultDiv.appendChild(item);
+          });
+        })
+        .catch(err => {
+          console.error("Error fetching search results:", err);
+          errorDiv.innerHTML = "Failed to fetch results from the server. Please try again later.";
+        });
+    }
+  </script>
+</body>
+</html>
