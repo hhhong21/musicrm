@@ -20,7 +20,7 @@ public class Administrator {
     private String adminEmail;
     private Date adminDob;
     private Integer adminStatus; //0=active; 1=inactive; 2=deleted
-
+    
     public Administrator(){
     }  
     

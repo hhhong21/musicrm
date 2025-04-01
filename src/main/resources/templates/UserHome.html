@@ -4,22 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Home Page</title>
-    <link rel="stylesheet" href="Style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            position: relative;
+            background-image: url('4.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .container {
+            position: relative;
+            backdrop-filter: blur(2px) brightness(95%);
+            border: 1px solid #e9e9e9;
+            border-radius: 10px;
+            box-shadow: 0px 0px 30px -10px #0a100a;
+            padding: 15px;
+            width: 1000px;
+            height: 500px;
+            margin: auto;
+            padding: 20px;
+            margin-top: 90px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 20px;
+            font-weight: 680;
+            color: #383737;
+        }
+        .user-info {
+            margin-bottom: 10px;
+            text-align: left;
+            margin-left: 35px;
+            line-height: 40px;
+            font-size: 18px;
+            font-weight: 550;
+            color: #383737;
+        }
+        .user-info label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .function-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+            justify-items: center;
+        }
+        .function-buttons button {
+            padding: 10px 15px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #383737;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .function-buttons button:hover {
+            background-color: grey;
+        }
+        .settings {
+            text-align: right;
+            margin-right: 20px;
+            margin-top: 50px;
+        }
+        .settings a {
+            font-size: 18px;
+            font-weight: 550;
+            color: #383737;
+            text-decoration: underline;
+            text-decoration-color: #383737;
+            text-decoration-thickness: 1.5px;
+            transition: color 0.3s ease;
+        }
+        .settings a:hover {
+            color: grey;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>User Home</h1>
-        </header>
-        <nav>
-            <ul>
-                <li><a href="UserFunction1.html">UserFunction1</a></li>
-                <li><a href="UserFunction2.html">UserFunction2</a></li>
-                <li><a href="UserFunction3.html">UserFunction3</a></li>
-                <li><a href="UserFunction4.html">UserFunction4</a></li>
-                <li><a href="UserFunction5.html">UserFunction5</a></li>
-            </ul>
-        </nav>
+        <div class="header">
+            <h1>User</h1>
+        </div>
+        <div class="user-profile">
+            <div class="user-info">
+                <label>ID: <span id="userId"></span></label>
+                <label>Name: <span id="userName"></span></label>
+                <label>Email: <span id="userEmail"></span></label>
+            </div>
+        </div>
+        <div class="function-buttons">
+            <a href="MusicFileUpload.html"><button>Music File Upload</button></a>
+            <a href="MusicFileUpdate.html"><button>Music File Update</button></a>
+            <a href="MusicCategoryCreate.html"><button>Music Category Create</button></a>
+            <a href="MusicCategoryDelete.html"><button>Music Category Delete</button></a>
+        </div>
+        <div class="settings">
+            <a href="Settings.html">Settings</a>
+        </div>
     </div>
 </body>
 </html>
