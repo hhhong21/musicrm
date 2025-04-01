@@ -7,6 +7,10 @@ public class MusicFile {
     private String title;
     private String artist;
     private String album;
+
+
+    public MusicFile(Long id, String title, String artist, String album) 
+      
     private List<Long> categoryIds;
     private List<Long> tagIds;
 
@@ -15,10 +19,12 @@ public class MusicFile {
 
     // 全参数构造函数
     public MusicFile(Long id, String title, String artist, String album, List<Long> categoryIds, List<Long> tagIds) {
+
         this.id = id;
         this.title = title;
         this.artist = artist;
         this.album = album;
+
         this.categoryIds = categoryIds;
         this.tagIds = tagIds;
     }
@@ -72,4 +78,5 @@ public class MusicFile {
     public void setTagIds(List<Long> tagIds) {
         this.tagIds = tagIds;
     }
+
 }
