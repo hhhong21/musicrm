@@ -4,33 +4,46 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final CorsConfigurationSource corsConfigurationSource;
+
+    public SecurityConfig(CorsConfigurationSource corsConfigurationSource) {
+        this.corsConfigurationSource = corsConfigurationSource;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            .cors(cors -> cors.configurationSource(corsConfigurationSource)) 
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/register").permitAll() // 允许访问注册页面
-                .requestMatchers("/api/auth/register").permitAll() // 允许访问注册 API
-                .anyRequest().authenticated() // 其他请求需要登录
+                .requestMatchers("/api/**").permitAll()
+                .requestMatchers("/userRegister","/userLogin").permitAll()
+                .anyRequest().authenticated()
+            )
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .formLogin(login -> login
-                .loginPage("/auth/login") // 指定登录页面（可修改为你的路径）
+                .loginPage("/userLogin")
                 .permitAll()
             )
             .logout(logout -> logout.permitAll());
 
         return http.build();
     }
-    @SuppressWarnings("deprecation")
+
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance(); // 不进行密码加密
+        return new BCryptPasswordEncoder(); // 使用 BCrypt 进行密码加密
     }
 }

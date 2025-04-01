@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Page</title>
+    <title>MusicRM - User Login</title>
     <style>
         * {
             margin: 0;
@@ -97,7 +97,7 @@
         </div>
         <div class="right">
             <div class="form-container">
-                <h1>Register your account</h1>
+                <h1>Login your account</h1>
                 <div class="input-group">
                     <label>Email</label>
                     <input type="email" placeholder="Please enter your email">
@@ -105,14 +105,11 @@
                 <div class="input-group">
                     <label>Password</label>
                     <input type="password" placeholder="Please enter your password">
-                </div>
-                <div class="input-group">
-                    <label>Confirm Password</label>
-                    <input type="password" placeholder="Confirm your password">
-                </div>
-                <button class="submit-btn">Submit</button>
-                <p class="already">Already Registered? <a href="#">Login</a></p>
+                </div>   
+                <button class="submit-btn">Login</button>
             </div>
+            <div class="link-group">
+                <a th:href="@{/userRegister}">Don't have an account? Sign Up here</a>
         </div>
     </div>
 </body>
