@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Now Playing</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fa;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    audio {
+      margin-top: 30px;
+      width: 80%;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #4CAF50;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="songTitle">Now Playing</h2>
+  <audio id="player" controls autoplay></audio>
+  <a href="filter.html">← Back to List</a>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const title = params.get("title");
+    const url = params.get("url");
+
+    document.getElementById("songTitle").innerText = "Now Playing: " + decodeURIComponent(title);
+    const player = document.getElementById("player");
+    player.src = decodeURIComponent(url);
+    player.play();
+  </script>
+</body>
+</html>
